@@ -1,0 +1,4 @@
+spring.datasourсe.url: jdbc:mysql://localhost:3306/diplom
+spring.datasourсe.username: root
+spring.datasourсe.password: corsar87
+spring.jpa.hibernate.ddl-auto: create

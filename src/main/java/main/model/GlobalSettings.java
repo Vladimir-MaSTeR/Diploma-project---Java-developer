@@ -1,18 +1,22 @@
 package main.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class GlobalSettings { // глобальные настройки движка
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private int id;
+
+    @Column(nullable = false)
     private String code; // системное имя настройки
+
+    @Column(nullable = false)
     private String name; // название настройки
+
+    @Column(nullable = false)
     private String value; // значение настройки
 
     /*          Значения глобальных настроек:

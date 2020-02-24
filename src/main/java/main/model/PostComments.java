@@ -1,9 +1,6 @@
 package main.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -11,11 +8,20 @@ public class PostComments { // комментарии к постам
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private int id;
+
     private int parentId; // комментарий, на который оставлен этот комментарий (может быть NULL, если комментарий оставлен просто к посту)
+
+    @Column(nullable = false)
     private int postId;   // пост, к которому написан комментарий
+
+    @Column(nullable = false)
     private int userId;   // автор комментария
+
+    @Column(nullable = false)
     private Date time;    // дата и время комментария
+
 
 
     public PostComments(int id, int parentId, int postId, int userId, Date time) {

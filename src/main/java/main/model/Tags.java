@@ -1,17 +1,19 @@
 package main.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Tags { // тэги
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private int id;
+
+    @Column(nullable = false)
     private String name;
+
+
 
     public Tags(int id, String name) {
         this.id = id;

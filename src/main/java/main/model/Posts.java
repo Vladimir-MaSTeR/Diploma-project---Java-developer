@@ -1,9 +1,6 @@
 package main.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -11,15 +8,36 @@ public class Posts {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private int id;
+
+    @Column(nullable = false)
     private boolean isActive;       // скрыта или активна публикация: 0 или 1
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "enum('NEW', 'ACCEPTED', 'DECLINED')")
     private Enum moderationStatus;  // статус модерации, по умолчанию значение NEW
+
+    @Column(nullable = false)
     private int moderatorId;        // ID пользователя-модератора, принявшего решение, или NULL
+
+    @Column(nullable = false)
     private int userId;             // автор поста
+
+    @Column(nullable = false)
     private Date time;              // дата и время публикации поста
+
+    @Column(nullable = false)
     private String title;           // заголовок поста
+
+    @Column(nullable = false)
     private String text;            // текст поста
+
+    @Column(nullable = false)
     private int viewCount;          // количество просмотров поста
+
+
+
 
     public Posts(int id, boolean isActive, Enum moderationStatus, int moderatorId, int userId, Date time, String title, String text, int viewCount) {
         this.id = id;
@@ -32,6 +50,8 @@ public class Posts {
         this.text = text;
         this.viewCount = viewCount;
     }
+
+
 
     public int getId() {
         return id;

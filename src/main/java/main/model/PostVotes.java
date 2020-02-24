@@ -1,9 +1,6 @@
 package main.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -11,11 +8,22 @@ public class PostVotes { // Лайки и дизлайки постов
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private int id;
-    private int userId;  // тот, кто поставил лайк / дизлайк\
+
+    @Column(nullable = false)
+    private int userId;  // тот, кто поставил лайк / дизлайк
+
+    @Column(nullable = false)
     private int postId;  // пост, которому поставлен лайк / дизлайк
+
+    @Column(nullable = false)
     private Date time;   // дата и время лайка / дизлайка
+
+    @Column(nullable = false)
     private byte value;  //  лайк или дизлайк: 1 или -1
+
+
 
 
     public PostVotes(int id, int userId, int postId, Date time, byte value) {
@@ -25,6 +33,7 @@ public class PostVotes { // Лайки и дизлайки постов
         this.time = time;
         this.value = value;
     }
+
 
     public int getId() {
         return id;

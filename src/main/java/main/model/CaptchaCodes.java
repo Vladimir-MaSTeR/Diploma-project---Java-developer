@@ -1,9 +1,6 @@
 package main.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -11,10 +8,19 @@ public class CaptchaCodes { //коды капч
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private int id;
+
+    @Column(nullable = false)
     private Date time;         // дата и время генерации кода капчи
+
+    @Column(nullable = false)
     private String code;       // код, отображаемый на картинкке капчи
+
+    @Column(nullable = false)
     private String secretCode; // код, передаваемый в параметре
+
+
 
 
     public CaptchaCodes(int id, Date time, String code, String secretCode) {

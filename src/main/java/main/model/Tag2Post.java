@@ -1,18 +1,20 @@
 package main.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Tag2Post { // связи тэгов с постами
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private int id;
+
+    @Column(nullable = false)
     private int postId;
+
+    @Column(nullable = false)
     private int tagId;
 
 

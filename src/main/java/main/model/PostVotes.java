@@ -11,11 +11,15 @@ public class PostVotes { // Лайки и дизлайки постов
     @Column(nullable = false)
     private int id;
 
-    @Column(nullable = false)
-    private int userId;  // тот, кто поставил лайк / дизлайк
+  //  @Column(nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(nullable = false)
+    private Users userId;  // тот, кто поставил лайк / дизлайк
 
-    @Column(nullable = false)
-    private int postId;  // пост, которому поставлен лайк / дизлайк
+    //@Column(nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id", nullable = false)
+    private Posts postId;  // пост, которому поставлен лайк / дизлайк
 
     @Column(nullable = false)
     private Date time;   // дата и время лайка / дизлайка
@@ -26,7 +30,7 @@ public class PostVotes { // Лайки и дизлайки постов
 
 
 
-    public PostVotes(int id, int userId, int postId, Date time, byte value) {
+    public PostVotes(int id, Users userId, Posts postId, Date time, byte value) {
         this.id = id;
         this.userId = userId;
         this.postId = postId;
@@ -42,17 +46,17 @@ public class PostVotes { // Лайки и дизлайки постов
         this.id = id;
     }
 
-    public int getUserId() {
+    public Users getUserId() {
         return userId;
     }
-    public void setUserId(int userId) {
+    public void setUserId(Users userId) {
         this.userId = userId;
     }
 
-    public int getPostId() {
+    public Posts getPostId() {
         return postId;
     }
-    public void setPostId(int postId) {
+    public void setPostId(Posts postId) {
         this.postId = postId;
     }
 

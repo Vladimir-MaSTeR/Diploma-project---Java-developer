@@ -11,15 +11,19 @@ public class Tag2Post { // связи тэгов с постами
     @Column(nullable = false)
     private int id;
 
-    @Column(nullable = false)
-    private int postId;
+   // @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Posts postId;
 
-    @Column(nullable = false)
-    private int tagId;
+    //@Column(nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(nullable = false)
+    private Tags tagId;
 
 
 
-    public Tag2Post(int id, int postId, int tagId) {
+    public Tag2Post(int id, Posts postId, Tags tagId) {
         this.id = id;
         this.postId = postId;
         this.tagId = tagId;
@@ -33,17 +37,17 @@ public class Tag2Post { // связи тэгов с постами
         this.id = id;
     }
 
-    public int getPostId() {
+    public Posts getPostId() {
         return postId;
     }
-    public void setPostId(int postId) {
+    public void setPostId(Posts postId) {
         this.postId = postId;
     }
 
-    public int getTagId() {
+    public Tags getTagId() {
         return tagId;
     }
-    public void setTagId(int tagId) {
+    public void setTagId(Tags tagId) {
         this.tagId = tagId;
     }
 }

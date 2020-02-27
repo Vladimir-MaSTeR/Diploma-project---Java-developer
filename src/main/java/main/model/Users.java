@@ -2,6 +2,7 @@ package main.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Users {
@@ -30,8 +31,11 @@ public class Users {
 
     private String photo;         // фотография (ссылка на файл)
 
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    private List<Posts> postsList;
 
-
+    public Users() {
+    }
 
     public Users(int id, boolean isModerator, Date regTime, String name, String email, String password, String code, String photo) {
         this.id = id;
@@ -100,5 +104,12 @@ public class Users {
     }
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public List<Posts> getPostsList() {
+        return postsList;
+    }
+    public void setPostsList(List<Posts> postsList) {
+        this.postsList = postsList;
     }
 }

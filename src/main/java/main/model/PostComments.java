@@ -13,8 +13,10 @@ public class PostComments { // комментарии к постам
 
     private int parentId; // комментарий, на который оставлен этот комментарий (может быть NULL, если комментарий оставлен просто к посту)
 
-    @Column(nullable = false)
-    private int postId;   // пост, к которому написан комментарий
+   // @Column(nullable = false)
+    @ManyToOne()
+    @JoinColumn(nullable = false)
+    private Posts postId;   // пост, к которому написан комментарий
 
     @Column(nullable = false)
     private int userId;   // автор комментария
@@ -23,8 +25,10 @@ public class PostComments { // комментарии к постам
     private Date time;    // дата и время комментария
 
 
+    public PostComments() {
+    }
 
-    public PostComments(int id, int parentId, int postId, int userId, Date time) {
+    public PostComments(int id, int parentId, Posts postId, int userId, Date time) {
         this.id = id;
         this.parentId = parentId;
         this.postId = postId;
@@ -47,10 +51,10 @@ public class PostComments { // комментарии к постам
         this.parentId = parentId;
     }
 
-    public int getPostId() {
+    public Posts getPostId() {
         return postId;
     }
-    public void setPostId(int postId) {
+    public void setPostId(Posts postId) {
         this.postId = postId;
     }
 

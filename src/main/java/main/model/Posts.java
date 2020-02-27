@@ -1,7 +1,10 @@
 package main.model;
 
+import main.model.enums.ModerationStatus;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Posts {
@@ -16,13 +19,15 @@ public class Posts {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "enum('NEW', 'ACCEPTED', 'DECLINED')")
-    private Enum moderationStatus;  // статус модерации, по умолчанию значение NEW
+    private ModerationStatus moderationStatus;  // статус модерации, по умолчанию значение NEW
 
     @Column(nullable = false)
     private int moderatorId;        // ID пользователя-модератора, принявшего решение, или NULL
 
-    @Column(nullable = false)
-    private int userId;             // автор поста
+    //@Column(nullable = false)
+    @ManyToOne()
+    @JoinColumn(nullable = false)
+    private Users userId;             // автор поста
 
     @Column(nullable = false)
     private Date time;              // дата и время публикации поста
@@ -36,10 +41,14 @@ public class Posts {
     @Column(nullable = false)
     private int viewCount;          // количество просмотров поста
 
+    @OneToMany(mappedBy = "postId", cascade = CascadeType.ALL)
+    private List<PostComments> commentsList;
 
 
+    public Posts() {
+    }
 
-    public Posts(int id, boolean isActive, Enum moderationStatus, int moderatorId, int userId, Date time, String title, String text, int viewCount) {
+    public Posts(int id, boolean isActive, ModerationStatus moderationStatus, int moderatorId, Users userId, Date time, String title, String text, int viewCount) {
         this.id = id;
         this.isActive = isActive;
         this.moderationStatus = moderationStatus;
@@ -70,7 +79,7 @@ public class Posts {
     public Enum getModerationStatus() {
         return moderationStatus;
     }
-    public void setModerationStatus(Enum moderationStatus) {
+    public void setModerationStatus(ModerationStatus moderationStatus) {
         this.moderationStatus = moderationStatus;
     }
 
@@ -81,10 +90,10 @@ public class Posts {
         this.moderatorId = moderatorId;
     }
 
-    public int getUserId() {
+    public Users getUserId() {
         return userId;
     }
-    public void setUserId(int userId) {
+    public void setUserId(Users userId) {
         this.userId = userId;
     }
 
@@ -116,4 +125,10 @@ public class Posts {
         this.viewCount = viewCount;
     }
 
+    public List<PostComments> getCommentsList() {
+        return commentsList;
+    }
+    public void setCommentsList(List<PostComments> commentsList) {
+        this.commentsList = commentsList;
+    }
 }

@@ -14,7 +14,7 @@ public class Tag2Post { // связи тэгов с постами
    // @Column(nullable = false)
     @ManyToOne
     @JoinColumn(nullable = false)
-    private Posts postId;
+    private Post postId;
 
     //@Column(nullable = false)
     @OneToOne(cascade = CascadeType.ALL)
@@ -23,7 +23,7 @@ public class Tag2Post { // связи тэгов с постами
 
 
 
-    public Tag2Post(int id, Posts postId, Tags tagId) {
+    public Tag2Post(int id, Post postId, Tags tagId) {
         this.id = id;
         this.postId = postId;
         this.tagId = tagId;
@@ -37,10 +37,10 @@ public class Tag2Post { // связи тэгов с постами
         this.id = id;
     }
 
-    public Posts getPostId() {
+    public Post getPostId() {
         return postId;
     }
-    public void setPostId(Posts postId) {
+    public void setPostId(Post postId) {
         this.postId = postId;
     }
 

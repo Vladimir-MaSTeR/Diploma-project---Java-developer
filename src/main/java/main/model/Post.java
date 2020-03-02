@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Posts {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,7 +27,7 @@ public class Posts {
     //@Column(nullable = false)
     @ManyToOne()
     @JoinColumn(nullable = false)
-    private Users userId;             // автор поста
+    private User userId;             // автор поста
 
     @Column(nullable = false)
     private Date time;              // дата и время публикации поста
@@ -45,10 +45,10 @@ public class Posts {
     private List<PostComments> commentsList;
 
 
-    public Posts() {
+    public Post() {
     }
 
-    public Posts(int id, boolean isActive, ModerationStatus moderationStatus, int moderatorId, Users userId, Date time, String title, String text, int viewCount) {
+    public Post(int id, boolean isActive, ModerationStatus moderationStatus, int moderatorId, User userId, Date time, String title, String text, int viewCount) {
         this.id = id;
         this.isActive = isActive;
         this.moderationStatus = moderationStatus;
@@ -90,10 +90,10 @@ public class Posts {
         this.moderatorId = moderatorId;
     }
 
-    public Users getUserId() {
+    public User getUserId() {
         return userId;
     }
-    public void setUserId(Users userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 

@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,12 +32,12 @@ public class Users {
     private String photo;         // фотография (ссылка на файл)
 
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
-    private List<Posts> postsList;
+    private List<Post> postList;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(int id, boolean isModerator, Date regTime, String name, String email, String password, String code, String photo) {
+    public User(int id, boolean isModerator, Date regTime, String name, String email, String password, String code, String photo) {
         this.id = id;
         this.isModerator = isModerator;
         this.regTime = regTime;
@@ -106,10 +106,10 @@ public class Users {
         this.photo = photo;
     }
 
-    public List<Posts> getPostsList() {
-        return postsList;
+    public List<Post> getPostList() {
+        return postList;
     }
-    public void setPostsList(List<Posts> postsList) {
-        this.postsList = postsList;
+    public void setPostList(List<Post> postList) {
+        this.postList = postList;
     }
 }

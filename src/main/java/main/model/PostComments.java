@@ -16,10 +16,11 @@ public class PostComments { // комментарии к постам
    // @Column(nullable = false)
     @ManyToOne()
     @JoinColumn(nullable = false)
-    private Posts postId;   // пост, к которому написан комментарий
+    private Post postId;   // пост, к которому написан комментарий
 
-    @Column(nullable = false)
-    private int userId;   // автор комментария
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(nullable = false)
+    private User userId;   // автор комментария
 
     @Column(nullable = false)
     private Date time;    // дата и время комментария
@@ -28,7 +29,7 @@ public class PostComments { // комментарии к постам
     public PostComments() {
     }
 
-    public PostComments(int id, int parentId, Posts postId, int userId, Date time) {
+    public PostComments(int id, int parentId, Post postId, User userId, Date time) {
         this.id = id;
         this.parentId = parentId;
         this.postId = postId;
@@ -51,17 +52,17 @@ public class PostComments { // комментарии к постам
         this.parentId = parentId;
     }
 
-    public Posts getPostId() {
+    public Post getPostId() {
         return postId;
     }
-    public void setPostId(Posts postId) {
+    public void setPostId(Post postId) {
         this.postId = postId;
     }
 
-    public int getUserId() {
+    public User getUserId() {
         return userId;
     }
-    public void setUserId(int userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 

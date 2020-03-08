@@ -28,7 +28,8 @@ public class PostVotes { // Лайки и дизлайки постов
     private byte value;  //  лайк или дизлайк: 1 или -1
 
 
-
+    public PostVotes() {
+    }
 
     public PostVotes(int id, User userId, Post postId, Date time, byte value) {
         this.id = id;

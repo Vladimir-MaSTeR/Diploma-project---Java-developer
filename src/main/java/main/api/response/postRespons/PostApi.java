@@ -3,7 +3,7 @@ package main.api.response.postRespons;
 import java.util.Date;
 import java.util.List;
 
-public class PostApi {
+public class PostApi implements CommonResponse {
 
     private int postId;
     private Date time;

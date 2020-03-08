@@ -1,5 +1,7 @@
 package main.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +14,7 @@ public class User {
     @Column(nullable = false)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private  boolean isModerator; // является ли пользователь модератором
 
     @Column(nullable = false)

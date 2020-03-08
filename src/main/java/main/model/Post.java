@@ -14,7 +14,7 @@ public class Post {
     @Column(nullable = false)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private boolean isActive;       // скрыта или активна публикация: 0 или 1
 
     @Enumerated(EnumType.STRING)

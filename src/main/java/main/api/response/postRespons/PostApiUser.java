@@ -1,6 +1,6 @@
 package main.api.response.postRespons;
 
-public class PostApiUser {
+public class PostApiUser implements CommonResponse {
 
     private int userId;
     private String userName;

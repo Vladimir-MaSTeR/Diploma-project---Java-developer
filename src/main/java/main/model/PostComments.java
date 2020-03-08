@@ -11,6 +11,7 @@ public class PostComments { // комментарии к постам
     @Column(nullable = false)
     private int id;
 
+    @Column(columnDefinition = "INTEGER")
     private int parentId; // комментарий, на который оставлен этот комментарий (может быть NULL, если комментарий оставлен просто к посту)
 
    // @Column(nullable = false)

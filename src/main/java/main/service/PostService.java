@@ -6,31 +6,34 @@ import main.api.response.postRespons.PostApiResponse;
 import main.api.response.postRespons.PostApiUser;
 import main.model.Post;
 import main.model.PostVotes;
+import main.model.enums.ModePostResponse;
 import main.repository.PostRepository;
 import main.repository.PostVotesRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
 public class PostService {
 
+    @Autowired
     PostRepository postRepository;
+    @Autowired
     PostVotesRepository postVotesRepository;
 
-    // mode - режим вывода (сортировка)
-    final String MODE_RECENT = "recent";    // сортировать по дате публикации, выводить сначала новые
-    final String MODE_POPULAR = "popular";  // сортировать по убыванию количества комментариев
-    final String MODE_BEST = "best";        // сортировать по убыванию количества лайков
-    final String MODE_EARLY = "early";      // сортировать по дате публикации, выводить сначала старые
+//     mode - режим вывода (сортировка)
+//    final String MODE_RECENT = "recent";    // сортировать по дате публикации, выводить сначала новые
+//    final String MODE_POPULAR = "popular";  // сортировать по убыванию количества комментариев
+//    final String MODE_BEST = "best";        // сортировать по убыванию количества лайков
+//    final String MODE_EARLY = "early";      // сортировать по дате публикации, выводить сначала старые
 
-    public PostService(PostRepository postRepository, PostVotesRepository postVotesRepository) {
-        this.postRepository = postRepository;
-        this.postVotesRepository = postVotesRepository;
-    }
+//    public PostService(PostRepository postRepository, PostVotesRepository postVotesRepository) {
+//        this.postRepository = postRepository;
+//        this.postVotesRepository = postVotesRepository;
+//    }
 
 
     public PostApiResponse listPostAllInfo(int offset, int limit, String mode) {
@@ -70,7 +73,7 @@ public class PostService {
             }
         }
 
-        if (mode.equals(MODE_RECENT)) {
+        if (mode.equals(ModePostResponse.RECENT)) {
             listPostApi.sort((p1, p2) -> p1.getTime().compareTo(p2.getTime()));
 
 //            Collections.sort(listAllPost, new Comparator<Post>() {
@@ -84,14 +87,14 @@ public class PostService {
 //                }
 //            });
         }
-        if (mode.equals(MODE_EARLY)) {
+        if (mode.equals(ModePostResponse.EARLY)) {
             listPostApi.sort((p1, p2) -> p1.getTime().compareTo(p2.getTime()));
             Collections.reverse(listAllPost);
         }
-        if (mode.equals(MODE_POPULAR)) {
+        if (mode.equals(ModePostResponse.POPULAR)) {
             listPostApi.sort((p1, p2) -> Integer.compare(p1.getCommentCount(), p2.getCommentCount()));
         }
-        if (mode.equals(MODE_BEST)) {
+        if (mode.equals(ModePostResponse.BEST)) {
             listPostApi.sort((p1, p2) -> Integer.compare(p1.getLikeCount(), p2.getLikeCount()));
         }
 

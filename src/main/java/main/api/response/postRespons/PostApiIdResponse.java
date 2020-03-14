@@ -1,35 +1,41 @@
 package main.api.response.postRespons;
 
 import java.util.Date;
+import java.util.List;
 
-public class PostApi implements CommonResponse {
+public class PostApiIdResponse implements CommonResponse {
 
     private int id;
     private Date time;
     private PostApiUser user;
     private String title;
-    private String announce;
+    private String text;
     private int likeCount;
     private int dislikeCount;
-    private int commentCount;
     private int viewCount;
+    private PostApiComments comments;
+    private PostApiTagName tags;
 
 
 
-    public PostApi() {
+
+    public PostApiIdResponse() {
     }
 
-    public PostApi(int id, Date time, PostApiUser user, String title, String announce, int likeCount, int dislikeCount, int commentCount, int viewCount) {
+    public PostApiIdResponse(int id, Date time, PostApiUser user, String title, String text, int likeCount, int dislikeCount, int viewCount, PostApiComments comments, PostApiTagName tags) {
         this.id = id;
         this.time = time;
         this.user = user;
         this.title = title;
-        this.announce = announce;
+        this.text = text;
         this.likeCount = likeCount;
         this.dislikeCount = dislikeCount;
-        this.commentCount = commentCount;
         this.viewCount = viewCount;
+        this.comments = comments;
+        this.tags = tags;
     }
+
+
 
 
 
@@ -51,8 +57,8 @@ public class PostApi implements CommonResponse {
     public PostApiUser getUser() {
         return user;
     }
-    public void setUser(PostApiUser IdAndNameUser) {
-        this.user = IdAndNameUser;
+    public void setUser(PostApiUser user) {
+        this.user = user;
     }
 
     public String getTitle() {
@@ -62,11 +68,11 @@ public class PostApi implements CommonResponse {
         this.title = title;
     }
 
-    public String getAnnounce() {
-        return announce;
+    public String getText() {
+        return text;
     }
-    public void setAnnounce(String announce) {
-        this.announce = announce;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public int getLikeCount() {
@@ -83,17 +89,27 @@ public class PostApi implements CommonResponse {
         this.dislikeCount = dislikeCount;
     }
 
-    public int getCommentCount() {
-        return commentCount;
-    }
-    public void setCommentCount(int commentCount) {
-        this.commentCount = commentCount;
-    }
-
     public int getViewCount() {
         return viewCount;
     }
     public void setViewCount(int viewCount) {
         this.viewCount = viewCount;
     }
+
+    public PostApiComments getComments() {
+        return comments;
+    }
+    public void setComments(PostApiComments comments) {
+        this.comments = comments;
+    }
+
+    public PostApiTagName getTags() {
+        return tags;
+    }
+    public void setTags(PostApiTagName tags) {
+        this.tags = tags;
+    }
+
+
+
 }

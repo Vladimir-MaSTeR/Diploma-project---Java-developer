@@ -1,6 +1,7 @@
 package main.api.response.generalRespons;
 
 
+import main.api.response.postRespons.CommonResponse;
 
 /*
 Общие данные блога - GET /api/init/
@@ -9,7 +10,7 @@ package main.api.response.generalRespons;
 авторских правах для размещения в футере.
 
  */
-public class InitApiResponse {
+public class InitApiResponse implements CommonResponse {
 
      private String title;
      private String subtitle;

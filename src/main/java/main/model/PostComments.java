@@ -12,7 +12,7 @@ public class PostComments { // комментарии к постам
     private int id;
 
     @Column(columnDefinition = "INTEGER")
-    private int parentId; // комментарий, на который оставлен этот комментарий (может быть NULL, если комментарий оставлен просто к посту)
+    private Integer parentId; // комментарий, на который оставлен этот комментарий (может быть NULL, если комментарий оставлен просто к посту)
 
    // @Column(nullable = false)
     @ManyToOne()

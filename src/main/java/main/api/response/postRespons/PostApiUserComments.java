@@ -1,18 +1,21 @@
 package main.api.response.postRespons;
 
-public class PostApiUser implements CommonResponse {
+public class PostApiUserComments implements CommonResponse {
 
     private int id;
     private String name;
+    private String photo;
 
 
-    public PostApiUser() {
+    public PostApiUserComments() {
     }
 
-    public PostApiUser(int id, String name) {
+    public PostApiUserComments(int id, String name, String photo) {
         this.id = id;
         this.name = name;
+        this.photo = photo;
     }
+
 
 
 
@@ -30,5 +33,10 @@ public class PostApiUser implements CommonResponse {
         this.name = name;
     }
 
-
+    public String getPhoto() {
+        return photo;
+    }
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 }

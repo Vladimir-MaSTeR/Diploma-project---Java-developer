@@ -8,7 +8,7 @@ import java.util.List;
 public class PostApiResponse implements CommonResponse {
 
     private int count;             //содержит общее количество постов, которое есть насайте
-    @JsonProperty("data")
+    @JsonProperty("posts")
     private List<PostApi> posts;
 
 

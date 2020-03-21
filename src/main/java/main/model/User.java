@@ -1,5 +1,6 @@
 package main.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class User {
     private  boolean isModerator; // является ли пользователь модератором
 
     @Column(nullable = false)
+    //@JsonFormat(pattern="yyyy-MM-dd")
     private Date regTime;         // дата и время регистрации пользователя
 
     @Column(nullable = false)

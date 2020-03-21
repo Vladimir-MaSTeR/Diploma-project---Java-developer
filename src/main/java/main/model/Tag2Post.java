@@ -11,12 +11,10 @@ public class Tag2Post { // связи тэгов с постами
     @Column(nullable = false)
     private int id;
 
-   // @Column(nullable = false)
     @ManyToOne
     @JoinColumn(nullable = false)
     private Post postId;
 
-    //@Column(nullable = false)
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(nullable = false)
     private Tags tagId;

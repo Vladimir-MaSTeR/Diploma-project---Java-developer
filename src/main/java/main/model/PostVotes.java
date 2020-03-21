@@ -1,5 +1,7 @@
 package main.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -22,6 +24,7 @@ public class PostVotes { // Лайки и дизлайки постов
     private Post postId;  // пост, которому поставлен лайк / дизлайк
 
     @Column(nullable = false)
+   // @JsonFormat(pattern="yyyy-MM-dd")
     private Date time;   // дата и время лайка / дизлайка
 
     @Column(nullable = false)

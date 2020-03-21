@@ -1,5 +1,7 @@
 package main.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,7 +16,6 @@ public class PostComments { // комментарии к постам
     @Column(columnDefinition = "INTEGER")
     private Integer parentId; // комментарий, на который оставлен этот комментарий (может быть NULL, если комментарий оставлен просто к посту)
 
-   // @Column(nullable = false)
     @ManyToOne()
     @JoinColumn(nullable = false)
     private Post postId;   // пост, к которому написан комментарий
@@ -24,18 +25,23 @@ public class PostComments { // комментарии к постам
     private User userId;   // автор комментария
 
     @Column(nullable = false)
+   // @JsonFormat(pattern="yyyy-MM-dd")
     private Date time;    // дата и время комментария
+
+    @Column(nullable = false)
+    private String text; // текст комментария
 
 
     public PostComments() {
     }
 
-    public PostComments(int id, int parentId, Post postId, User userId, Date time) {
+    public PostComments(int id, int parentId, Post postId, User userId, Date time, String text) {
         this.id = id;
         this.parentId = parentId;
         this.postId = postId;
         this.userId = userId;
         this.time = time;
+        this.text = text;
     }
 
 
@@ -72,5 +78,12 @@ public class PostComments { // комментарии к постам
     }
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public String getText() {
+        return text;
+    }
+    public void setText (String text) {
+        this.text = text;
     }
 }

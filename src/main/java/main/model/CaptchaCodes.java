@@ -1,5 +1,7 @@
 package main.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,6 +14,7 @@ public class CaptchaCodes { //коды капч
     private int id;
 
     @Column(nullable = false)
+   // @JsonFormat(pattern="yyyy-MM-dd")
     private Date time;         // дата и время генерации кода капчи
 
     @Column(nullable = false)

@@ -1,5 +1,6 @@
 package main.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import main.model.enums.ModerationStatus;
 
 import javax.persistence.*;
@@ -30,6 +31,7 @@ public class Post {
     private User userId;             // автор поста
 
     @Column(nullable = false)
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date time;              // дата и время публикации поста
 
     @Column(nullable = false)

@@ -4,6 +4,7 @@ import main.api.response.postRespons.CommonResponse;
 import main.api.response.postRespons.PostApiResponse;
 import main.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,27 +34,29 @@ public class ApiPostController {  //обрабатывает все запрос
         return service.searchPosts(offset, limit, query);
    }
 
-    // not ready | work
+    // ready | no checking
    @GetMapping("/{id}")
    @ResponseStatus(HttpStatus.OK) // Метод выводит данные конкретного поста
    public CommonResponse getPostId(@PathVariable int id) {
         return service.getPostId(id);
    }
 
-    // not ready
+    // ready | no checking
     @GetMapping("/byDate")
     @ResponseStatus(HttpStatus.OK) // Выводит посты за конкретную дату
-    public CommonResponse getPostsData(@RequestParam int offset, @RequestParam(defaultValue = "5") int limit, @RequestParam Date date) {
-        return null; // service.getPostsData(offset, limit, date);
+    public CommonResponse getPostsData(@RequestParam int offset, @RequestParam(defaultValue = "5") int limit, @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        return service.getPostsData(offset, limit, date);
     }
 
-    // not ready
+    // ready | no checking
     @GetMapping("/byTag")
     @ResponseStatus(HttpStatus.OK) // Метод выводит список постов, привязанных к тэгу
     public CommonResponse getPostsTag(@RequestParam int offset, @RequestParam(defaultValue = "5") int limit, @RequestParam String tag) {
-        return null; // service.getPostsTag(offset, limit, tag);
+        return service.getPostsTag(offset, limit, tag);
     }
 
+
+//-----------------------------------------------------------------------------------------------------
     // ТРЕБУЕТСЯ АВТОРИЗАЦИЯ
     // not ready
     @GetMapping("/moderation")

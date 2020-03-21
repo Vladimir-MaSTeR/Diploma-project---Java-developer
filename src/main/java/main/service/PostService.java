@@ -7,10 +7,8 @@ import main.model.enums.ModePostResponse;
 import main.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.*;
-import javax.swing.text.html.HTML;
 import java.util.*;
 
 @Service
@@ -36,7 +34,7 @@ public class PostService  {
         int likeCount = 0;
         int dislikeCount = 0;
 
-        List<Post> listAllPost = postRepository.AllPostList(offset, limit);
+        List<Post> listAllPost = postRepository.allPostList(offset, limit);
         List<PostVotes> listPostVotes = postVotesRepository.findAll();
         List<PostApi> listPostApi = new ArrayList<>();
         count = postRepository.findAll().size();
@@ -100,13 +98,15 @@ public class PostService  {
         int likeCount = 0;
         int dislikeCount = 0;
 
-        List<Post> listAllPost = postRepository.AllPostList(offset, limit);
+        List<Post> postList = query.length() != 0 ?
+                postRepository.searchPost(offset, limit, query) :
+                postRepository.allPostList(offset, limit);
+
         List<PostVotes> listPostVotes = postVotesRepository.findAll();
-        List<PostApi> listPostApi = new ArrayList<>();
         List<PostApi> listPostApiMatches = new ArrayList<>();
         count = postRepository.findAll().size();
 
-        for (Post post : listAllPost) {
+        for (Post post : postList) {
             for (PostVotes votes : listPostVotes) {
                 if (votes.getPostId().getId() == post.getId()) {
                     if (votes.getValue() == 1) {
@@ -118,34 +118,22 @@ public class PostService  {
                 }
             }
 
-            if (post.getTitle().contains(query) & query.length() != 0 || post.getText().contains(query) & query.length() != 0) {
-                listPostApiMatches.add(new PostApi(post.getId(),
-                        post.getTime(),
-                        new PostApiUser(post.getUserId().getId(), post.getUserId().getName()),
-                        post.getTitle(),
-                        post.getText().length() >= 100 ? post.getText().substring(0, 100) : post.getText(),
-                        likeCount,
-                        dislikeCount,
-                        post.getCommentsList().size(),
-                        post.getViewCount()));
-            } else {
-                    listPostApi.add(new PostApi(post.getId(),
-                            post.getTime(),
-                            new PostApiUser(post.getUserId().getId(), post.getUserId().getName()),
-                            post.getTitle(),
-                            post.getText().length() >= 100 ? post.getText().substring(0, 100) : post.getText(),
-                            likeCount,
-                            dislikeCount,
-                            post.getCommentsList().size(),
-                            post.getViewCount()));
-            }
+            listPostApiMatches.add(new PostApi(post.getId(),
+                    post.getTime(),
+                    new PostApiUser(post.getUserId().getId(), post.getUserId().getName()),
+                    post.getTitle(),
+                    post.getText().length() >= 100 ? post.getText().substring(0, 100) : post.getText(),
+                    likeCount,
+                    dislikeCount,
+                    post.getCommentsList().size(),
+                    post.getViewCount()));
         }
 
 
-        return listPostApiMatches.size() != 0 ? new PostApiResponse(count, listPostApiMatches) : new PostApiResponse(count, listPostApi);
+        return new PostApiResponse(count, listPostApiMatches);
     }
 
-    // ready | work
+    // ready | on checking
     public PostApiIdResponse getPostId(int id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Post with this ID not found."));
         User user = userRepository.findById(post.getUserId().getId()).orElseThrow(() -> new EntityNotFoundException("User with this ID not found."));
@@ -191,7 +179,7 @@ public class PostService  {
                                 new PostApiComments(postComments.getId(),
                                         postComments.getTime(),
                                         new PostApiUserComments(user.getId(), user.getName(), user.getPhoto()),
-                                        "huhuhuhuh"),
+                                        postComments.getText()),
                                 new PostApiTagName(tags.getName())
                                 );
             }
@@ -201,4 +189,92 @@ public class PostService  {
         return postApiIdResponse;
     }
 
+    // ready | on checking
+    public PostApiResponse getPostsData(int offset, int limit, Date date) {
+
+        int count = 0;                          // содержит общее количество постов, которое есть на сайте
+        int likeCount = 0;
+        int dislikeCount = 0;
+
+        List<Post> listAllPost = postRepository.postsData(offset, limit, date);
+        List<PostVotes> listPostVotes = postVotesRepository.findAll();
+        List<PostApi> listPostApi = new ArrayList<>();
+        count = postRepository.findAll().size();
+
+        for (Post post : listAllPost) {
+            for (PostVotes votes : listPostVotes) {
+                if (votes.getPostId().getId() == post.getId()) {
+                    if (votes.getValue() == 1) {
+                        likeCount++;
+                    }
+                    if (votes.getValue() == -1) {
+                        dislikeCount++;
+                    }
+                }
+            }
+
+                listPostApi.add(new PostApi(post.getId(),
+                        post.getTime(),
+                        new PostApiUser(post.getUserId().getId(), post.getUserId().getName()),
+                        post.getTitle(),
+                        post.getText().length() >= 100 ? post.getText().substring(0, 100) : post.getText(),
+                        likeCount,
+                        dislikeCount,
+                        post.getCommentsList().size(),
+                        post.getViewCount()));
+        }
+
+
+        return new PostApiResponse(count, listPostApi);
+    }
+
+    // ready | on checking
+    public PostApiResponse getPostsTag(int offset, int limit, String tag) {
+
+        int count = 0;                          // содержит общее количество постов, которое есть на сайте
+        int likeCount = 0;
+        int dislikeCount = 0;
+
+        List<Post> listAllPost = postRepository.allPostList(offset, limit);
+        List<PostVotes> listPostVotes = postVotesRepository.findAll();
+        List<Tags> listTags = tagsRepository.findAll();
+        List<Tag2Post> listTag2Post = tag2PostRepository.findAll();
+        List<PostApi> listPostApi = new ArrayList<>();
+        count = postRepository.findAll().size();
+
+        for (Post post : listAllPost) {
+            for (PostVotes votes : listPostVotes) {
+                if (votes.getPostId().getId() == post.getId()) {
+                    if (votes.getValue() == 1) {
+                        likeCount++;
+                    }
+                    if (votes.getValue() == -1) {
+                        dislikeCount++;
+                    }
+                }
+            }
+
+            for (Tags tags : listTags) {
+                if (tags.getName().equals(tag)) {
+                    for (Tag2Post tag2Post : listTag2Post) {
+                        if (tag2Post.getTagId().getId() == tags.getId() & tag2Post.getPostId().getId() == post.getId()) {
+                            listPostApi.add(new PostApi(post.getId(),
+                                    post.getTime(),
+                                    new PostApiUser(post.getUserId().getId(), post.getUserId().getName()),
+                                    post.getTitle(),
+                                    post.getText().length() >= 100 ? post.getText().substring(0, 100) : post.getText(),
+                                    likeCount,
+                                    dislikeCount,
+                                    post.getCommentsList().size(),
+                                    post.getViewCount()));
+                        }
+                    }
+                }
+            }
+        }
+
+        return new PostApiResponse(count, listPostApi);
+    }
+
+   // not ready | work
 }

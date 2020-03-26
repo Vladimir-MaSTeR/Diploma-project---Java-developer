@@ -1,11 +1,14 @@
 package main.api.response.postRespons;
 
+import main.api.response.CommonResponse;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class PostApi implements CommonResponse {
 
     private int id;
-    private Date time;
+    private LocalDateTime time;
     private PostApiUser user;
     private String title;
     private String announce;
@@ -19,7 +22,7 @@ public class PostApi implements CommonResponse {
     public PostApi() {
     }
 
-    public PostApi(int id, Date time, PostApiUser user, String title, String announce, int likeCount, int dislikeCount, int commentCount, int viewCount) {
+    public PostApi(int id, LocalDateTime time, PostApiUser user, String title, String announce, int likeCount, int dislikeCount, int commentCount, int viewCount) {
         this.id = id;
         this.time = time;
         this.user = user;
@@ -41,10 +44,10 @@ public class PostApi implements CommonResponse {
         this.id = id;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

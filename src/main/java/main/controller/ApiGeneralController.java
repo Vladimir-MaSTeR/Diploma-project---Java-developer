@@ -1,7 +1,6 @@
 package main.controller;
 
-import main.api.response.generalRespons.InitApiResponse;
-import main.api.response.postRespons.CommonResponse;
+import main.api.response.CommonResponse;
 import main.service.GeneralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

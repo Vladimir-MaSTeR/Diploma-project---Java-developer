@@ -6,16 +6,12 @@ public class PostApiTagName {
 
 
 
-
     public PostApiTagName() {
     }
 
     public PostApiTagName(String name) {
         this.name = name;
     }
-
-
-
 
 
 

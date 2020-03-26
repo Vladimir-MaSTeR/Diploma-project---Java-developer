@@ -28,8 +28,7 @@ public class GlobalSettings { // глобальные настройки дви�
      */
 
 
-    public GlobalSettings(int id, String code, String name, String value) {
-        this.id = id;
+    public GlobalSettings(String code, String name, String value) {
         this.code = code;
         this.name = name;
         this.value = value;

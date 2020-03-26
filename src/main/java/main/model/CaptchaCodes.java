@@ -3,6 +3,7 @@ package main.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -14,8 +15,8 @@ public class CaptchaCodes { //коды капч
     private int id;
 
     @Column(nullable = false)
-   // @JsonFormat(pattern="yyyy-MM-dd")
-    private Date time;         // дата и время генерации кода капчи
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDateTime time;         // дата и время генерации кода капчи
 
     @Column(nullable = false)
     private String code;       // код, отображаемый на картинкке капчи
@@ -24,10 +25,11 @@ public class CaptchaCodes { //коды капч
     private String secretCode; // код, передаваемый в параметре
 
 
+    public CaptchaCodes() {
+    }
 
-
-    public CaptchaCodes(int id, Date time, String code, String secretCode) {
-        this.id = id;
+    public CaptchaCodes(LocalDateTime time, String code, String secretCode) {
+      //  this.id = id;
         this.time = time;
         this.code = code;
         this.secretCode = secretCode;
@@ -41,10 +43,10 @@ public class CaptchaCodes { //коды капч
         this.id = id;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

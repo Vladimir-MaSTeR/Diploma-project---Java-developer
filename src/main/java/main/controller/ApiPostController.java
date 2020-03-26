@@ -1,15 +1,14 @@
 package main.controller;
 
-import main.api.response.postRespons.CommonResponse;
-import main.api.response.postRespons.PostApiResponse;
+import main.api.response.CommonResponse;
 import main.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/post")
@@ -37,14 +36,14 @@ public class ApiPostController {  //обрабатывает все запрос
     // ready | no checking
    @GetMapping("/{id}")
    @ResponseStatus(HttpStatus.OK) // Метод выводит данные конкретного поста
-   public CommonResponse getPostId(@PathVariable int id) {
+   public CommonResponse getPostId(@PathVariable Integer id) {
         return service.getPostId(id);
    }
 
     // ready | no checking
     @GetMapping("/byDate")
     @ResponseStatus(HttpStatus.OK) // Выводит посты за конкретную дату
-    public CommonResponse getPostsData(@RequestParam int offset, @RequestParam(defaultValue = "5") int limit, @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+    public CommonResponse getPostsData(@RequestParam int offset, @RequestParam(defaultValue = "5") int limit, @RequestParam("date") String date) {
         return service.getPostsData(offset, limit, date);
     }
 
@@ -95,7 +94,7 @@ public class ApiPostController {  //обрабатывает все запрос
     // not ready
     @PostMapping
     @ResponseStatus(HttpStatus.OK) // Метод отправляет данные поста, которые пользователь ввёл в форму публикации.
-    public CommonResponse addPost(@RequestParam Date date, @RequestParam byte active, @RequestParam String title, @RequestParam String text, @RequestParam String tags) {
+    public CommonResponse addPost(@RequestParam LocalDateTime date, @RequestParam byte active, @RequestParam String title, @RequestParam String text, @RequestParam String tags) {
         return null; // service.addPost(date, active, title, text, tags);
     }
 
@@ -103,7 +102,7 @@ public class ApiPostController {  //обрабатывает все запрос
     // not ready
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK) // Метод изменяет данные поста
-    public CommonResponse updatePost(@RequestParam Date date, @RequestParam byte active, @RequestParam String title, @RequestParam String text, @RequestParam String tags ) {
+    public CommonResponse updatePost(@RequestParam LocalDateTime date, @RequestParam byte active, @RequestParam String title, @RequestParam String text, @RequestParam String tags ) {
        return null; // service.updatePost(date, active, title, text, tags);
     }
 

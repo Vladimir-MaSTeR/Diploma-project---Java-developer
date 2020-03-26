@@ -6,6 +6,7 @@ package main.repository;
         import org.springframework.stereotype.Component;
         import org.springframework.stereotype.Repository;
 
+        import java.time.LocalDateTime;
         import java.util.Date;
         import java.util.List;
 
@@ -27,10 +28,10 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     public List<Post> searchPost(int offset, int limit, String query);
 
     @Query(value = "SELECT * FROM post p WHERE p.is_active = true " +
-            "AND p.moderation_status = 'ACCEPTED'" +
-            "AND time < CURDATE()" +
-            "AND p.time = ?3 " +
+            "AND p.moderation_status = 'ACCEPTED' " +
+            "AND time < CURDATE() " +
+            "AND p.time BETWEEN ?3 AND ?4 " +
             "ORDER BY p.time DESC LIMIT ?2 OFFSET ?1", nativeQuery = true)
-    public List<Post> postsData(int offset, int limit, Date date);
+    public List<Post> postsData(int offset, int limit, LocalDateTime date, LocalDateTime date2);
 
 }

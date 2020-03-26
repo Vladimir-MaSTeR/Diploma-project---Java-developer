@@ -1,5 +1,7 @@
 package main.api.response.postRespons;
 
+import main.api.response.CommonResponse;
+
 public class PostApiUser implements CommonResponse {
 
     private int id;

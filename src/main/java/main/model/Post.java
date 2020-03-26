@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import main.model.enums.ModerationStatus;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class Post {
 
     @Column(nullable = false)
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date time;              // дата и время публикации поста
+    private LocalDateTime time;              // дата и время публикации поста
 
     @Column(nullable = false)
     private String title;           // заголовок поста
@@ -50,8 +51,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(int id, boolean isActive, ModerationStatus moderationStatus, int moderatorId, User userId, Date time, String title, String text, int viewCount) {
-        this.id = id;
+    public Post(boolean isActive, ModerationStatus moderationStatus, int moderatorId, User userId, LocalDateTime time, String title, String text, int viewCount) {
         this.isActive = isActive;
         this.moderationStatus = moderationStatus;
         this.moderatorId = moderatorId;
@@ -99,10 +99,10 @@ public class Post {
         this.userId = userId;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

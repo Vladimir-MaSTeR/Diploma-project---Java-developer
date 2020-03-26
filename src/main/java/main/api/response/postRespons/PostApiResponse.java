@@ -2,6 +2,7 @@ package main.api.response.postRespons;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import main.api.response.CommonResponse;
 
 import java.util.List;
 

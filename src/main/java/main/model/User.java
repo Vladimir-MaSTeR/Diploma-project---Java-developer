@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -19,30 +20,32 @@ public class User {
     private  boolean isModerator; // является ли пользователь модератором
 
     @Column(nullable = false)
-    //@JsonFormat(pattern="yyyy-MM-dd")
-    private Date regTime;         // дата и время регистрации пользователя
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDateTime regTime;         // дата и время регистрации пользователя
 
     @Column(nullable = false)
-    private String name;          // имя пользователя
+    private String name;                   // имя пользователя
 
     @Column(nullable = false)
-    private String email;         // e-mail пользователя
+    private String email;                  // e-mail пользователя
 
     @Column(nullable = false)
-    private String password;      // хэш пароля пользователя
+    private String password;               // хэш пароля пользователя
 
-    private String code;          // код для восстановления пароля
+    private String code;                   // код для восстановления пароля
 
-    private String photo;         // фотография (ссылка на файл)
+    private String photo;                  // фотография (ссылка на файл)
 
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     private List<Post> postList;
 
+
+
+
     public User() {
     }
 
-    public User(int id, boolean isModerator, Date regTime, String name, String email, String password, String code, String photo) {
-        this.id = id;
+    public User(boolean isModerator, LocalDateTime regTime, String name, String email, String password, String code, String photo) {
         this.isModerator = isModerator;
         this.regTime = regTime;
         this.name = name;
@@ -51,6 +54,15 @@ public class User {
         this.code = code;
         this.photo = photo;
     }
+
+    public User(boolean isModerator, LocalDateTime regTime, String name, String email, String password) {
+        this.isModerator = isModerator;
+        this.regTime = regTime;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
 
 
 
@@ -68,10 +80,10 @@ public class User {
         isModerator = moderator;
     }
 
-    public Date getRegTime() {
+    public LocalDateTime getRegTime() {
         return regTime;
     }
-    public void setRegTime(Date regTime) {
+    public void setRegTime(LocalDateTime regTime) {
         this.regTime = regTime;
     }
 

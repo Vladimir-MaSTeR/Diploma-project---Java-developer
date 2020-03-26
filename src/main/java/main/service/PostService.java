@@ -9,10 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.*;
 
 @Service
-public class PostService  {
+public class PostService {
 
     @Autowired
     PostRepository postRepository;
@@ -28,7 +34,7 @@ public class PostService  {
     TagsRepository tagsRepository;
 
     // finished
-    public PostApiResponse listPostAllInfo(int offset, int limit, String mode)  {
+    public PostApiResponse listPostAllInfo(int offset, int limit, String mode) {
 
         int count = 0;                          // содержит общее количество постов, которое есть на сайте
         int likeCount = 0;
@@ -52,14 +58,14 @@ public class PostService  {
             }
 
             listPostApi.add(new PostApi(post.getId(),
-                                        post.getTime(),
-                                        new PostApiUser(post.getUserId().getId(), post.getUserId().getName()),
-                                        post.getTitle(),
-                                        post.getText().length() >= 100 ? post.getText().substring(0, 100) : post.getText(),
-                                        likeCount,
-                                        dislikeCount,
-                                        post.getCommentsList().size(),
-                                        post.getViewCount()));
+                    post.getTime(),
+                    new PostApiUser(post.getUserId().getId(), post.getUserId().getName()),
+                    post.getTitle(),
+                    post.getText().length() >= 100 ? post.getText().substring(0, 100) : post.getText(),
+                    likeCount,
+                    dislikeCount,
+                    post.getCommentsList().size(),
+                    post.getViewCount()));
 
         }
 
@@ -93,7 +99,7 @@ public class PostService  {
     }
 
     // finished
-    public PostApiResponse searchPosts(int offset,int limit, String query) {
+    public PostApiResponse searchPosts(int offset, int limit, String query) {
         int count = 0;                          // содержит общее количество постов, которое есть на сайте
         int likeCount = 0;
         int dislikeCount = 0;
@@ -134,7 +140,7 @@ public class PostService  {
     }
 
     // ready | on checking
-    public PostApiIdResponse getPostId(int id) {
+    public PostApiIdResponse getPostId(Integer id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Post with this ID not found."));
         User user = userRepository.findById(post.getUserId().getId()).orElseThrow(() -> new EntityNotFoundException("User with this ID not found."));
 
@@ -168,20 +174,20 @@ public class PostService  {
             if (postComments.getPostId().getId() == post.getId()) {
 
                 assert tags != null;
-                 postApiIdResponse = new PostApiIdResponse(post.getId(),
-                                post.getTime(),
-                                new PostApiUser(user.getId(), user.getName()),
-                                post.getTitle(),
-                                post.getText(),
-                                likeCount,
-                                dislikeCount,
-                                post.getViewCount(),
-                                new PostApiComments(postComments.getId(),
-                                        postComments.getTime(),
-                                        new PostApiUserComments(user.getId(), user.getName(), user.getPhoto()),
-                                        postComments.getText()),
-                                new PostApiTagName(tags.getName())
-                                );
+                postApiIdResponse = new PostApiIdResponse(post.getId(),
+                        post.getTime(),
+                        new PostApiUser(user.getId(), user.getName()),
+                        post.getTitle(),
+                        post.getText().length() >= 100 ? post.getText().substring(0, 100) : post.getText(),
+                        likeCount,
+                        dislikeCount,
+                        post.getViewCount(),
+                        new PostApiComments(postComments.getId(),
+                                postComments.getTime(),
+                                postComments.getText(),
+                                new PostApiUserComments(user.getId(), user.getName(), user.getPhoto())),
+                        new PostApiTagName(tags.getName())
+                );
             }
         }
 
@@ -189,14 +195,23 @@ public class PostService  {
         return postApiIdResponse;
     }
 
-    // ready | on checking
-    public PostApiResponse getPostsData(int offset, int limit, Date date) {
+    // finished
+    public PostApiResponse getPostsData(int offset, int limit, String date) {
 
         int count = 0;                          // содержит общее количество постов, которое есть на сайте
         int likeCount = 0;
         int dislikeCount = 0;
 
-        List<Post> listAllPost = postRepository.postsData(offset, limit, date);
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd[ [HH][:mm][:ss][.SSS]]")
+                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                .toFormatter();
+        LocalDateTime dateTime = LocalDate.parse(date, formatter).atStartOfDay();
+        LocalDateTime dateTime2 = dateTime.plusDays(1);
+
+
+        List<Post> listAllPost = postRepository.postsData(offset, limit, dateTime, dateTime2);
         List<PostVotes> listPostVotes = postVotesRepository.findAll();
         List<PostApi> listPostApi = new ArrayList<>();
         count = postRepository.findAll().size();
@@ -213,15 +228,15 @@ public class PostService  {
                 }
             }
 
-                listPostApi.add(new PostApi(post.getId(),
-                        post.getTime(),
-                        new PostApiUser(post.getUserId().getId(), post.getUserId().getName()),
-                        post.getTitle(),
-                        post.getText().length() >= 100 ? post.getText().substring(0, 100) : post.getText(),
-                        likeCount,
-                        dislikeCount,
-                        post.getCommentsList().size(),
-                        post.getViewCount()));
+            listPostApi.add(new PostApi(post.getId(),
+                    post.getTime(),
+                    new PostApiUser(post.getUserId().getId(), post.getUserId().getName()),
+                    post.getTitle(),
+                    post.getText().length() >= 100 ? post.getText().substring(0, 100) : post.getText(),
+                    likeCount,
+                    dislikeCount,
+                    post.getCommentsList().size(),
+                    post.getViewCount()));
         }
 
 
@@ -276,5 +291,5 @@ public class PostService  {
         return new PostApiResponse(count, listPostApi);
     }
 
-   // not ready | work
+    // not ready | work
 }

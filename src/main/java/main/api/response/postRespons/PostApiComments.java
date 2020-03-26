@@ -1,22 +1,26 @@
 package main.api.response.postRespons;
 
+import main.api.response.CommonResponse;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class PostApiComments implements CommonResponse {
 
     private int id;
-    private Date time;
-    private PostApiUserComments user;
+    private LocalDateTime time;
     private String text;
+    private PostApiUserComments user;
+
 
     public PostApiComments() {
     }
 
-    public PostApiComments(int id, Date time, PostApiUserComments user, String text) {
+    public PostApiComments(int id, LocalDateTime time, String text, PostApiUserComments user) {
         this.id = id;
         this.time = time;
-        this.user = user;
         this.text = text;
+        this.user = user;
     }
 
 
@@ -27,10 +31,10 @@ public class PostApiComments implements CommonResponse {
         this.id = id;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

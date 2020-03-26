@@ -3,6 +3,7 @@ package main.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -25,8 +26,8 @@ public class PostComments { // комментарии к постам
     private User userId;   // автор комментария
 
     @Column(nullable = false)
-   // @JsonFormat(pattern="yyyy-MM-dd")
-    private Date time;    // дата и время комментария
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDateTime time;    // дата и время комментария
 
     @Column(nullable = false)
     private String text; // текст комментария
@@ -35,8 +36,7 @@ public class PostComments { // комментарии к постам
     public PostComments() {
     }
 
-    public PostComments(int id, int parentId, Post postId, User userId, Date time, String text) {
-        this.id = id;
+    public PostComments(int parentId, Post postId, User userId, LocalDateTime time, String text) {
         this.parentId = parentId;
         this.postId = postId;
         this.userId = userId;
@@ -73,10 +73,10 @@ public class PostComments { // комментарии к постам
         this.userId = userId;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

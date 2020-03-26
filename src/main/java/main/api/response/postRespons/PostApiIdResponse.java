@@ -1,15 +1,17 @@
 package main.api.response.postRespons;
 
+import main.api.response.CommonResponse;
+
+import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
 public class PostApiIdResponse implements CommonResponse {
 
     private int id;
-    private Date time;
+    private LocalDateTime time;
     private PostApiUser user;
     private String title;
-    private String text;
+    private String announce ;
     private int likeCount;
     private int dislikeCount;
     private int viewCount;
@@ -22,12 +24,12 @@ public class PostApiIdResponse implements CommonResponse {
     public PostApiIdResponse() {
     }
 
-    public PostApiIdResponse(int id, Date time, PostApiUser user, String title, String text, int likeCount, int dislikeCount, int viewCount, PostApiComments comments, PostApiTagName tags) {
+    public PostApiIdResponse(int id, LocalDateTime time, PostApiUser user, String title, String announce, int likeCount, int dislikeCount, int viewCount, PostApiComments comments, PostApiTagName tags) {
         this.id = id;
         this.time = time;
         this.user = user;
         this.title = title;
-        this.text = text;
+        this.announce = announce;
         this.likeCount = likeCount;
         this.dislikeCount = dislikeCount;
         this.viewCount = viewCount;
@@ -47,10 +49,10 @@ public class PostApiIdResponse implements CommonResponse {
         this.id = id;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
@@ -68,11 +70,11 @@ public class PostApiIdResponse implements CommonResponse {
         this.title = title;
     }
 
-    public String getText() {
-        return text;
+    public String getAnnounce() {
+        return announce;
     }
-    public void setText(String text) {
-        this.text = text;
+    public void setAnnounce(String text) {
+        this.announce = text;
     }
 
     public int getLikeCount() {

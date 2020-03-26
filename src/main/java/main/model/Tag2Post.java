@@ -23,8 +23,7 @@ public class Tag2Post { // связи тэгов с постами
     public Tag2Post() {
     }
 
-    public Tag2Post(int id, Post postId, Tags tagId) {
-        this.id = id;
+    public Tag2Post(Post postId, Tags tagId) {
         this.postId = postId;
         this.tagId = tagId;
     }

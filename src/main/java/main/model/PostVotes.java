@@ -3,6 +3,7 @@ package main.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -13,19 +14,17 @@ public class PostVotes { // Лайки и дизлайки постов
     @Column(nullable = false)
     private int id;
 
-  //  @Column(nullable = false)
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(nullable = false)
     private User userId;  // тот, кто поставил лайк / дизлайк
 
-    //@Column(nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id", nullable = false)
     private Post postId;  // пост, которому поставлен лайк / дизлайк
 
     @Column(nullable = false)
-   // @JsonFormat(pattern="yyyy-MM-dd")
-    private Date time;   // дата и время лайка / дизлайка
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDateTime time;   // дата и время лайка / дизлайка
 
     @Column(nullable = false)
     private byte value;  //  лайк или дизлайк: 1 или -1
@@ -34,8 +33,8 @@ public class PostVotes { // Лайки и дизлайки постов
     public PostVotes() {
     }
 
-    public PostVotes(int id, User userId, Post postId, Date time, byte value) {
-        this.id = id;
+    public PostVotes(User userId, Post postId, LocalDateTime
+            time, byte value) {
         this.userId = userId;
         this.postId = postId;
         this.time = time;
@@ -64,10 +63,10 @@ public class PostVotes { // Лайки и дизлайки постов
         this.postId = postId;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
-    public void setTime(Date time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

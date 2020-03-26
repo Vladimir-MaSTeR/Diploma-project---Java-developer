@@ -17,8 +17,7 @@ public class Tags { // тэги
     public Tags() {
     }
 
-    public Tags(int id, String name) {
-        this.id = id;
+    public Tags(String name) {
         this.name = name;
     }
 

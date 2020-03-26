@@ -1,7 +1,7 @@
 package main.api.response.generalRespons;
 
 
-import main.api.response.postRespons.CommonResponse;
+import main.api.response.CommonResponse;
 
 /*
 Общие данные блога - GET /api/init/

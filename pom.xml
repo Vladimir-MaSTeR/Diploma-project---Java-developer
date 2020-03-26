@@ -33,7 +33,10 @@
         <version>2.2.2.RELEASE</version>
     </parent>
 
+
     <properties>
+        <java.version>1.8</java.version>
+
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -69,6 +72,20 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.5.2</version>
+        </dependency>
+
+        <!-- Captcha -->
+        <dependency>
+            <groupId>com.github.cage</groupId>
+            <artifactId>cage</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!-- Resize image -->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.11</version>
         </dependency>
 
     </dependencies>

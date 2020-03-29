@@ -4,21 +4,21 @@ import main.api.response.CommonResponse;
 
 import java.util.List;
 
-public class NewUserResponse implements CommonResponse {
+public class ResponseTrueFalseAndObject implements CommonResponse {
 
     private boolean result;
     private Object errors;
 
 
 
-    public NewUserResponse() {
+    public ResponseTrueFalseAndObject() {
     }
 
-    public NewUserResponse(boolean result) {
+    public ResponseTrueFalseAndObject(boolean result) {
         this.result = result;
     }
 
-    public NewUserResponse(boolean result, Object errors) {
+    public ResponseTrueFalseAndObject(boolean result, Object errors) {
         this.result = result;
         this.errors = errors;
     }

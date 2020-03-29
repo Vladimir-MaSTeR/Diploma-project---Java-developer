@@ -12,6 +12,6 @@ import java.util.List;
 @Component
 public interface CaptchaCodesRepository extends JpaRepository<CaptchaCodes, Integer> {
 
-    @Query(value = "SELECT * FROM captcha_codes c WHERE c.code = ?1 AND c.secret_code = ?2 ", nativeQuery = true)
-    public List<CaptchaCodes> newUserCaptcha(String captcha, String captchaSecret);
+    @Query(value = "SELECT * FROM captcha_codes c WHERE c.code = ?1 ", nativeQuery = true)
+    public List<CaptchaCodes> newUserCaptcha(String captcha);
 }

@@ -2,13 +2,13 @@ package main.api.response.authRespons;
 
 import main.api.response.CommonResponse;
 
-public class ErrorNewUserPassword implements CommonResponse {
+public class ErrorPassword implements CommonResponse {
 
     private String password;
 
 
 
-    public ErrorNewUserPassword() {
+    public ErrorPassword() {
     }
 
     public String getPassword() {
@@ -21,7 +21,7 @@ public class ErrorNewUserPassword implements CommonResponse {
     public void setPassword(String password) {
         this.password = password;
     }
-    public ErrorNewUserPassword(String password) {
+    public ErrorPassword(String password) {
         this.password = password;
     }
 }

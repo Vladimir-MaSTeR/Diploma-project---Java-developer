@@ -60,6 +60,13 @@
             <version>2.2.2.RELEASE</version>
         </dependency>
 
+        <!-- Email -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+            <version>2.2.5.RELEASE</version>
+        </dependency>
+
         <!-- MySQL -->
         <dependency>
             <groupId>mysql</groupId>
@@ -89,7 +96,6 @@
         </dependency>
 
     </dependencies>
-
 
 
 </project>

@@ -34,4 +34,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
             "ORDER BY p.time DESC LIMIT ?2 OFFSET ?1", nativeQuery = true)
     public List<Post> postsData(int offset, int limit, LocalDateTime date, LocalDateTime date2);
 
+    @Query(value = "SELECT * FROM post p WHERE p.moderation_status = 'NEW' ", nativeQuery = true)
+    public List<Post> postsNewStatus();
+
 }

@@ -2,15 +2,15 @@ package main.api.response.authRespons;
 
 import main.api.response.CommonResponse;
 
-public class ErrorNewUserName implements CommonResponse {
+public class ErrorName implements CommonResponse {
 
     private String name;
 
 
-    public ErrorNewUserName() {
+    public ErrorName() {
     }
 
-    public ErrorNewUserName(String name) {
+    public ErrorName(String name) {
         this.name = name;
     }
 

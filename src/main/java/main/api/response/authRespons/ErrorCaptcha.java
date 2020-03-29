@@ -2,15 +2,15 @@ package main.api.response.authRespons;
 
 import main.api.response.CommonResponse;
 
-public class ErrorNewUserCaptcha implements CommonResponse {
+public class ErrorCaptcha implements CommonResponse {
 
     private String captcha;
 
 
-    public ErrorNewUserCaptcha() {
+    public ErrorCaptcha() {
     }
 
-    public ErrorNewUserCaptcha(String captcha) {
+    public ErrorCaptcha(String captcha) {
         this.captcha = captcha;
     }
 

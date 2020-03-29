@@ -2,16 +2,16 @@ package main.api.response.authRespons;
 
 import main.api.response.CommonResponse;
 
-public class ErrorsNewUserEmail implements CommonResponse {
+public class ErrorsEmail implements CommonResponse {
 
     private String email;
 
 
 
-    public ErrorsNewUserEmail() {
+    public ErrorsEmail() {
     }
 
-    public ErrorsNewUserEmail(String email) {
+    public ErrorsEmail(String email) {
         this.email = email;
     }
 

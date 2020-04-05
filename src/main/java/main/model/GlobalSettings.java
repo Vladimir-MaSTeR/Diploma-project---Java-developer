@@ -19,20 +19,17 @@ public class GlobalSettings { // глобальные настройки дви�
     @Column(nullable = false)
     private String value; // значение настройки
 
-    /*          Значения глобальных настроек:
 
-              code                        name                        value
-         MULTIUSER_MODE          Многопользовательский режим         YES / NO
-         POST_PREMODERATION      Премодерация постов                 YES / NO
-         STATISTICS_IS_PUBLIC    Показывать всем статистику блога    YES / NO
-     */
 
+    public GlobalSettings() {
+    }
 
     public GlobalSettings(String code, String name, String value) {
         this.code = code;
         this.name = name;
         this.value = value;
     }
+
 
 
     public int getId() {

@@ -26,7 +26,7 @@ public class PostComments { // комментарии к постам
     private User userId;   // автор комментария
 
     @Column(nullable = false)
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime time;    // дата и время комментария
 
     @Column(nullable = false)

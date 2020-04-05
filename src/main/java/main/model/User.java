@@ -20,7 +20,7 @@ public class User {
     private  boolean isModerator; // является ли пользователь модератором
 
     @Column(nullable = false)
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime regTime;         // дата и время регистрации пользователя
 
     @Column(nullable = false)

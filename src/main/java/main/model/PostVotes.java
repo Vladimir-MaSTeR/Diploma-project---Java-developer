@@ -23,7 +23,7 @@ public class PostVotes { // Лайки и дизлайки постов
     private Post postId;  // пост, которому поставлен лайк / дизлайк
 
     @Column(nullable = false)
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime time;   // дата и время лайка / дизлайка
 
     @Column(nullable = false)

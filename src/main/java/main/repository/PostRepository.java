@@ -37,4 +37,11 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     @Query(value = "SELECT * FROM post p WHERE p.moderation_status = 'NEW' ", nativeQuery = true)
     public List<Post> postsNewStatus();
 
+    @Query(value = "SELECT * FROM post p WHERE p.user_id_id = ?1", nativeQuery = true)
+    public List<Post> postsUser(int id);
+
+    @Query(value = "SELECT * FROM post p WHERE p.time BETWEEN ?1 AND ?2", nativeQuery = true)
+    List<Post> searchToDate(LocalDateTime date1, LocalDateTime date2);
+
+
 }

@@ -5,7 +5,9 @@ import main.api.request.EmailRecoveryRequestApi;
 import main.api.request.LoginRequestApi;
 import main.api.request.PasswordChangeRequestApi;
 import main.api.request.RegisterRequestApi;
+import main.api.response.ResponseTrueFalseAndObject;
 import main.api.response.authRespons.*;
+import main.api.response.errorRespons.*;
 import main.model.CaptchaCodes;
 import main.model.User;
 import main.repository.CaptchaCodesRepository;
@@ -15,6 +17,7 @@ import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 
@@ -23,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Component
 @Service
 public class AuthService {
 
@@ -38,7 +42,7 @@ public class AuthService {
 
 
     // finished
-    public CaptchaResponse getCaptcha() {
+    public AuthCaptchaResponse getCaptcha() {
         final int STRING_SIZE_CODE = 6;
         final int STRING_SIZE_SECRET_CODE = 9;
         final int SIZE_IMAGE_HEIGHT = 115;
@@ -70,7 +74,7 @@ public class AuthService {
         }
         captchaRepository.save(new CaptchaCodes(LocalDateTime.now(), stringCaptcha, generateString(STRING_SIZE_SECRET_CODE)));
 
-        return new CaptchaResponse(generateString(STRING_SIZE_SECRET_CODE), "data:image/png;base64, " + new String(codeBase64, StandardCharsets.UTF_8));
+        return new AuthCaptchaResponse(generateString(STRING_SIZE_SECRET_CODE), "data:image/png;base64, " + new String(codeBase64, StandardCharsets.UTF_8));
     }
 
     final String generateString(int numMs) {
@@ -160,9 +164,9 @@ public class AuthService {
         User user = userRepository.searchEmail(email).stream().findFirst().orElse(null);
         //User user = userList.stream().findFirst().orElse(null);
 
-        UserLoginResponse userLoginResponse = null;
+        AuthUserLoginResponse authUserLoginResponse = null;
         if (user != null && user.isModerator()) {
-            userLoginResponse = new UserLoginResponse(user.getId(),
+            authUserLoginResponse = new AuthUserLoginResponse(user.getId(),
                     user.getName(),
                     user.getPhoto(),
                     user.getEmail(),
@@ -171,7 +175,7 @@ public class AuthService {
                     true);
         } else {
             assert user != null;
-            userLoginResponse = new UserLoginResponse(user.getId(),
+            authUserLoginResponse = new AuthUserLoginResponse(user.getId(),
                     user.getName(),
                     user.getPhoto(),
                     user.getEmail(),
@@ -185,14 +189,14 @@ public class AuthService {
         } else {
             authorizedUsersList.put(sessionStr, user.getId());
         }
-        return new ResponseTrueFalseAndObject(true, userLoginResponse);
+        return new ResponseTrueFalseAndObject(true, authUserLoginResponse);
 
     }
 
     // finished
     public ResponseTrueFalseAndObject check() {
         final String sessionStr = RequestContextHolder.currentRequestAttributes().getSessionId();
-        UserLoginResponse userLoginResponse = null;
+        AuthUserLoginResponse authUserLoginResponse = null;
 
         if (!authorizedUsersList.containsKey(sessionStr)) {
             return new ResponseTrueFalseAndObject(false);
@@ -201,7 +205,7 @@ public class AuthService {
             User user = userRepository.getOne(valueIdUser);
 
             if (user.isModerator()) {
-                userLoginResponse = new UserLoginResponse(user.getId(),
+                authUserLoginResponse = new AuthUserLoginResponse(user.getId(),
                         user.getName(),
                         user.getPhoto(),
                         user.getEmail(),
@@ -209,7 +213,7 @@ public class AuthService {
                         postRepository.postsNewStatus().size(),
                         true);
             } else {
-                userLoginResponse = new UserLoginResponse(user.getId(),
+                authUserLoginResponse = new AuthUserLoginResponse(user.getId(),
                         user.getName(),
                         user.getPhoto(),
                         user.getEmail(),
@@ -220,7 +224,7 @@ public class AuthService {
 
         }
 
-        return new ResponseTrueFalseAndObject(true, userLoginResponse);
+        return new ResponseTrueFalseAndObject(true, authUserLoginResponse);
     }
 
     // finished
@@ -289,5 +293,9 @@ public class AuthService {
         userRepository.save(user);
 
         return new ResponseTrueFalseAndObject(true);
+    }
+
+    public HashMap<String, Integer> getAuthorizedUsersList() {
+        return authorizedUsersList;
     }
 }

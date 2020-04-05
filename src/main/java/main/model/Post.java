@@ -32,7 +32,7 @@ public class Post {
     private User userId;             // автор поста
 
     @Column(nullable = false)
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime time;              // дата и время публикации поста
 
     @Column(nullable = false)

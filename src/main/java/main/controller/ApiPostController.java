@@ -22,7 +22,6 @@ public class ApiPostController {  //обрабатывает все запрос
     @GetMapping
     @ResponseStatus(HttpStatus.OK) //Метод получения постов со всей сопутствующей информацией для главной страницы и подразделов
     public CommonResponse listPostAllInfo(@RequestParam int offset, @RequestParam(defaultValue = "5") int limit, @RequestParam String mode) {
-
         return service.listPostAllInfo(offset, limit, mode);
     }
 

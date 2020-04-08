@@ -32,21 +32,21 @@ public class ApiPostController {  //обрабатывает все запрос
         return service.searchPosts(offset, limit, query);
    }
 
-    // ready | no checking
+    // finished
    @GetMapping("/{id}")
    @ResponseStatus(HttpStatus.OK) // Метод выводит данные конкретного поста
    public CommonResponse getPostId(@PathVariable Integer id) {
         return service.getPostId(id);
    }
 
-    // ready | no checking
+    // finished
     @GetMapping("/byDate")
     @ResponseStatus(HttpStatus.OK) // Выводит посты за конкретную дату
     public CommonResponse getPostsData(@RequestParam int offset, @RequestParam(defaultValue = "5") int limit, @RequestParam("date") String date) {
         return service.getPostsData(offset, limit, date);
     }
 
-    // ready | no checking
+    // finished
     @GetMapping("/byTag")
     @ResponseStatus(HttpStatus.OK) // Метод выводит список постов, привязанных к тэгу
     public CommonResponse getPostsTag(@RequestParam int offset, @RequestParam(defaultValue = "5") int limit, @RequestParam String tag) {
@@ -54,9 +54,7 @@ public class ApiPostController {  //обрабатывает все запрос
     }
 
 
-//-----------------------------------------------------------------------------------------------------
-    // ТРЕБУЕТСЯ АВТОРИЗАЦИЯ
-    // not ready
+//----------------Not ready--------------------
     @GetMapping("/moderation")
     @ResponseStatus(HttpStatus.OK) // Метод выводит все посты, которые требуют модерационных действий
     public CommonResponse  getPostsModeration(@RequestParam int offset, @RequestParam(defaultValue = "5") int limit, @RequestParam String status) {
@@ -70,8 +68,6 @@ public class ApiPostController {  //обрабатывает все запрос
         return null; // service.getPostsModeration(offset, limit, status);
     }
 
-    // ТРЕБУЕТСЯ АВТОРИЗАЦИЯ
-    // not ready
     @GetMapping("/my")
     @ResponseStatus(HttpStatus.OK) //Метод выводит только те посты, которые создал я
     public CommonResponse getPostsMy(@RequestParam int offset, @RequestParam(defaultValue = "5") int limit, @RequestParam String status) {
@@ -89,24 +85,27 @@ public class ApiPostController {  //обрабатывает все запрос
         return null; // service.getPostsMy(offset, limit, status);
     }
 
-    // ТРЕБУЕТСЯ АВТОРИЗАЦИЯ
-    // not ready
     @PostMapping
     @ResponseStatus(HttpStatus.OK) // Метод отправляет данные поста, которые пользователь ввёл в форму публикации.
     public CommonResponse addPost(@RequestParam LocalDateTime date, @RequestParam byte active, @RequestParam String title, @RequestParam String text, @RequestParam String tags) {
         return null; // service.addPost(date, active, title, text, tags);
     }
 
-    // ТРЕБУЕТСЯ АВТОРИЗАЦИЯ
-    // not ready
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK) // Метод изменяет данные поста
     public CommonResponse updatePost(@RequestParam LocalDateTime date, @RequestParam byte active, @RequestParam String title, @RequestParam String text, @RequestParam String tags ) {
        return null; // service.updatePost(date, active, title, text, tags);
     }
 
+    @PostMapping("/like")
+    @ResponseStatus(HttpStatus.OK) // Метод сохраняет в таблицу post_votes лайк текущего авторизованного пользователя.
+    public CommonResponse addLikePost(@RequestParam int postId) {
+        return null; // service.addLikePost(postId);
+    }
 
-
-
-
+    @PostMapping("/dislike")
+    @ResponseStatus(HttpStatus.OK) // Метод сохраняет в таблицу post_votes дизлайк текущего авторизованного пользователя.
+    public CommonResponse addDislikePost(@RequestParam int postId) {
+        return null; // service.addDislikePost(postId);
+    }
 }
